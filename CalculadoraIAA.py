@@ -82,6 +82,21 @@ def getLgth(text):
    
     return ret-1;
 
+def dName(text, pos):
+    size = len(text)
+    strr = "{}:j_id213\">".format(pos)
+    init = text.rfind(strr, 0, size)
+    fim = text.find("</td>", init, size)
+    text = text [init + len(strr):fim]
+    return text
+
+def dHA(text, pos):
+    size = len(text)
+    strr = "{}:j_id219\" style=\"text-align: center\">".format(pos)
+    init = text.rfind(strr, 0, size)
+    fim = text.find("</td>", init, size)
+    text = text [init + len(strr):fim]
+    return int(text)
 
 #PROGRAMA COMECA AQUI
 
@@ -107,6 +122,7 @@ print("Atualmente seu IAA é {} e sua carga horária total cursada é de {} hora
 
 os.remove("output.txt")
 
+response = conectar_CAGR(username, password);
 mirror = getMirror(response)
 text_file = open("output.txt", "w")
 text_file.write(mirror.read())
@@ -119,13 +135,11 @@ totalAulas = getLgth(pagina) #int(raw_input("\nInsira a quantidade de matérias 
 horasAulasTotal = 0
 somatorio = 0
 for i in range(0,totalAulas):
-    horasAulas = int(raw_input("Insira a quantidade de horas/aula da matéria " + str(i+1) + "\n"))
+    horasAulas = dHA(pagina, i)
     horasAulasTotal += horasAulas
-    notaAula = float(raw_input("Insira a nota da matéria " + str(i+1) + "\n"))
+    notaAula = float(raw_input("Insira a possivel nota em {}\n".format(dName(pagina, i))))
     somatorio += notaAula*horasAulas
 horasAulasTotal += cargaHoraria
 somatorio += IAA*cargaHoraria
 
 print ("De acordo com o que você me informou, seu possível IAA será {}".format(str("{0:.2f}".format(somatorio/horasAulasTotal))))
-
-os.remove("output.txt")
