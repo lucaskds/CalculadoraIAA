@@ -122,6 +122,7 @@ print("Atualmente seu IAA é {} e sua carga horária total cursada é de {} hora
 
 os.remove("output.txt")
 
+response = conectar_CAGR(username, password);
 mirror = getMirror(response)
 text_file = open("output.txt", "w")
 text_file.write(mirror.read())
@@ -129,7 +130,7 @@ text_file.close()
 
 pagina = open('output.txt').read()
 
-totalAulas = getLgth(pagina)
+totalAulas = getLgth(pagina) #int(raw_input("\nInsira a quantidade de matérias que você está cursando atualmente:\n"))
 
 horasAulasTotal = 0
 somatorio = 0
