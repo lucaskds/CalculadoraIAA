@@ -107,11 +107,7 @@ response = conectar_CAGR(username, password);
 
 history = getHistory(response)
 
-text_file = open("output.txt", "w")
-text_file.write(history.read())
-text_file.close()
-
-pagina = open('output.txt').read()
+pagina = history.read()
 
 IAA = get_IAA(pagina,len(pagina))
 cargaHoraria = get_cargaHoraria(pagina)
@@ -120,15 +116,10 @@ nome = get_nome(pagina)
 print("Olá {} !".format(nome))
 print("Atualmente seu IAA é {} e sua carga horária total cursada é de {} horas".format(str(IAA), str(cargaHoraria)))
 
-os.remove("output.txt")
 
 mirror = getMirror(response)
-text_file = open("output.txt", "w")
-text_file.write(mirror.read())
-text_file.close()
 
-pagina = open('output.txt').read()
-
+pagina = mirror.read()
 totalAulas = getLgth(pagina)
 
 horasAulasTotal = 0
