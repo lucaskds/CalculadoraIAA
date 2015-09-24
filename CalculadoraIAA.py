@@ -57,7 +57,10 @@ def get_IAA(text, size):
     text = strip_tags(text [start + 4:end])
     text = [t.replace(',', '.') for t in text]
     IAA = text[1:len(text)-1]
-    return float("".join(IAA))
+    try:
+        return float("".join(IAA))
+    except:
+        print("Problema de autenticação!")
 
 def get_cargaHoraria(text):
     size = len(text)
@@ -78,12 +81,12 @@ def get_length(text):
     ret = 0
     size = len(text)
     types = [">Ob<",">Ex<",">Op<"]
-    for s in types:    
+    for s in types:
         i = 0
         while i != -1:
             i = text.find(s, i+1, size)
-	    if i != -1:
-	        ret += 1
+            if i != -1:
+                ret += 1
     return ret-1
 
 def dName(text, pos):
@@ -121,8 +124,8 @@ print("Seu IAA é %.2f e sua carga horária cursada é de %dh." % (IAA, cargaHor
 mirror = get_mirror(response)
 pagina = mirror.read()
 totalAulas = get_length(pagina)
-
 horasAulasTotal, somatorio = 0, 0
+
 for i in range(totalAulas):
     horasAulas = dHA(pagina, i)*18
     horasAulasTotal += horasAulas
